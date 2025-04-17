@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wedding Guest Checker</title>
+  <style>
+    body { font-family: Arial; text-align: center; margin-top: 50px; background-color: #fdf6f0; }
+    input, button { padding: 10px; margin-top: 10px; width: 80%; max-width: 300px; }
+    .result { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h2>Welcome to the Wedding of Ella & Ryan</h2>
+  <p>Enter your full name below:</p>
+
+  <input type="text" id="guestName" placeholder="e.g. Ana Santos">
+  <br>
+  <button onclick="checkGuest()">Check Invitation</button>
+
+  <div class="result" id="result"></div>
+
+  <script>
+    const guestList = {
+      "Ana Santos": { table: 1, chair: 3 },
+      "Mark Reyes": { table: 2, chair: 5 },
+      "Liza Dela Cruz": { table: 3, chair: 1 }
+    };
+
+    function checkGuest() {
+      const name = document.getElementById("guestName").value.trim();
+      const result = document.getElementById("result");
+
+      if (guestList[name]) {
+        const { table, chair } = guestList[name];
+        result.innerHTML = Welcome <b>${name}</b>!<br>You’re seated at <b>Table ${table}</b>, Chair <b>${chair}</b>.;
+        result.style.color = "green";
+      } else {
+        result.innerHTML = You're not on the guest list.<br>Please ask the wedding coordinator for assistance.;
+        result.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
