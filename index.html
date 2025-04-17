@@ -3,16 +3,31 @@
 <head>
   <title>Wedding Guest Checker</title>
   <style>
-    body { font-family: Arial; text-align: center; margin-top: 50px; background-color: #fdf6f0; }
-    input, button { padding: 10px; margin-top: 10px; width: 80%; max-width: 300px; }
-    .result { margin-top: 20px; font-weight: bold; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f1f1;
+      text-align: center;
+      padding: 40px;
+    }
+    input, button {
+      padding: 10px;
+      width: 80%;
+      max-width: 300px;
+      margin: 10px 0;
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
-  <h2>Welcome to the Wedding of Ella & Ryan</h2>
-  <p>Enter your full name below:</p>
 
-  <input type="text" id="guestName" placeholder="e.g. Ana Santos">
+  <h2>Welcome to the Wedding of Ella & Ryan</h2>
+  <p>Please enter your full name to check if you're invited:</p>
+
+  <input type="text" id="guestName" placeholder="e.g., Ana Santos">
   <br>
   <button onclick="checkGuest()">Check Invitation</button>
 
@@ -26,18 +41,27 @@
     };
 
     function checkGuest() {
-      const name = document.getElementById("guestName").value.trim();
+      const inputName = document.getElementById("guestName").value.trim().toLowerCase();
       const result = document.getElementById("result");
 
-      if (guestList[name]) {
-        const { table, chair } = guestList[name];
-        result.innerHTML = Welcome <b>${name}</b>!<br>You’re seated at <b>Table ${table}</b>, Chair <b>${chair}</b>.;
-        result.style.color = "green";
-      } else {
-        result.innerHTML = You're not on the guest list.<br>Please ask the wedding coordinator for assistance.;
+      let found = false;
+      for (const [name, info] of Object.entries(guestList)) {
+        if (name.toLowerCase() === inputName) {
+          result.innerHTML = Welcome <strong>${name}</strong>!<br>
+            You're seated at <strong>Table ${info.table}</strong>, Chair <strong>${info.chair}</strong>.;
+          result.style.color = "green";
+          found = true;
+          break;
+        }
+      }
+
+      if (!found) {
+        result.innerHTML = You're not on the guest list.<br>
+          Please ask the wedding coordinators for assistance.;
         result.style.color = "red";
       }
     }
   </script>
+
 </body>
 </html>
